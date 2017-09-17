@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=MinGW-Windows
 CND_ARTIFACT_DIR_Debug=dist/Debug/MinGW-Windows
-CND_ARTIFACT_NAME_Debug=lista1
-CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/lista1
+CND_ARTIFACT_NAME_Debug=fonte
+CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/fonte
 CND_PACKAGE_DIR_Debug=dist/Debug/MinGW-Windows/package
-CND_PACKAGE_NAME_Debug=lista1.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/lista1.tar
+CND_PACKAGE_NAME_Debug=fonte.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/fonte.tar
 # Release configuration
 CND_PLATFORM_Release=MinGW-Windows
 CND_ARTIFACT_DIR_Release=dist/Release/MinGW-Windows
-CND_ARTIFACT_NAME_Release=lista1
-CND_ARTIFACT_PATH_Release=dist/Release/MinGW-Windows/lista1
+CND_ARTIFACT_NAME_Release=fonte
+CND_ARTIFACT_PATH_Release=dist/Release/MinGW-Windows/fonte
 CND_PACKAGE_DIR_Release=dist/Release/MinGW-Windows/package
-CND_PACKAGE_NAME_Release=lista1.tar
-CND_PACKAGE_PATH_Release=dist/Release/MinGW-Windows/package/lista1.tar
+CND_PACKAGE_NAME_Release=fonte.tar
+CND_PACKAGE_PATH_Release=dist/Release/MinGW-Windows/package/fonte.tar
 #
 # include compiler specific variables
 #

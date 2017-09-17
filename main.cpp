@@ -1,73 +1,145 @@
-/**
+/* 
+ * File:   main.cpp
+ * Author: Edilson Cichon
+ * Data: 06-08-2017
+ * Professor: Victório Carvalho
+ * Disciplina: TPA
+ * Curso: Sistemas de Informação - 6º Semestre (IFES)
+ * 
  * 1º Trabalho - Lista de elementos 
  * para ser utilizada no decorrer das aulas.
- * 
- * Data: 06-08-2017
- * Aluno: Edilson Cichon
- * Professor: Victório
- * Disciplina: TPA
- * Curso: Sistemas de Informação - 6º Semestre
+ *
+ * Created on September 16, 2017, 8:50 PM
  */
 
-#include <cstdio>
-#include <cstdlib>
-#include <string>
-#include <unistd.h>
-#include <ctype.h>
+#include "stdio.h"
+#include "ctype.h"
+#include "stdlib.h"
+#include "string.h"
+#include "unistd.h"
+#include "time.h"
 
 #include "global.h"
 #include "util.h"
-#include "structures.h"
+#include "lista.h"
+#include "cidade.h"
 
-void acoesMenu(ListaDisco *discos);
+int  menu();
+void executarMenu();
+void * lerArquivo(Lista *lista, char * caminho);
+void medirTempos(Lista *lista, Lista *ordCodigo, Lista *ordNome);
 
 int main() {
-    ListaDisco discos;
+    Lista *baseDados           = newLista();
+    Lista *listaOrdenadaNome   = newLista();
+    Lista *listaOrdenadaCodigo = newLista();
+    inicializar(baseDados);
     
-    inicializa(&discos);
-
-    acoesMenu(&discos);
+    printf("\n\n Lendo cidades... \n");
+    lerArquivo(baseDados, newString("base_dados/entrada_100000.txt"));
+    
+    medirTempos(baseDados, listaOrdenadaCodigo, listaOrdenadaNome);
+    
+    return (EXIT_SUCCESS);
 }
 
-void acoesMenu(ListaDisco *discos) {
+void executarMenu() {
     int operacao;
     do {
         operacao = menu();
 
         switch (operacao) {
-            case 1: insereDisco(discos, NULL, NULL);
+            case 1: 
                 break;
-            case 2: alterarDisco(discos);
-            limparPrompt();
-                break;
-            case 3: listarDiscos(discos);
-                break;
-            case 4: consultarDisco(discos);
-                break;
-            case 5: excluirDisco(discos, NULL);
-                break;
-            case 6: ordenarDiscoUP(discos);
-                break;
-            case 7: ordenarDiscoDOWN(discos);
-                break;
-            case 8: insereArtista(discos);
-                break;
-            case 9: listaArtistas(discos);
-                break;
-            case 10: break;
-            case 11: inserirFaixa(discos);
-                break;
-            case 12: listaFaixasDisco(discos);
-                break;
-            case 13: listaFaixasArtista(discos);
-                break;
-            case 14: listaTotalFaixasDisco(discos);
-                break;
-            case 15: listaTotalFaixasArtista(discos);
-                break;
-            case 16: listaArtistasFaixaEspecifica(discos);
-                break;
+            default:
+                printf("IMPLEMENTAR ACOES MENU!!!");
         }
 
     } while (operacao != 0);
+}
+
+int menu() {
+    int opcao;
+    limparPrompt();
+    printf("\n\n\n\t\t=====| MENU AGENDA |=====\n\n");
+    printf("\t 0 - SAIR\n\n");
+    printf("\t 1 - INSERIR ELEMENTO\n");
+    printf("\t 2 - REMOVER ELEMENTO\n");
+    printf("\t 3 - LISTAR LISTA\n");
+
+    do {
+        printf("\t\tInforme a OPCAO desejada: ");
+        scanf("%d", &opcao);
+
+        if (opcao > 3) 
+            printf("\n\nERRO: Opcao INVALIDA !!!\n\n");
+    } while (opcao > 3);
+
+    return opcao;
+}
+
+void * lerArquivo(Lista *lista, char * caminho) {
+    char linha[100];
+    char *parte;
+    char delimitador[2] = ";";
+    
+    char *nome;
+    int  codigo;
+    int  populacao;
+    Cidade   *cidade   = NULL;
+    Elemento *elemento = NULL;
+    int contador = 0;
+    FILE * arquivo = fopen(caminho, "r");
+    
+    if (!arquivo) {
+        printf("\n\nErro: nao foi possivel abrir o arquivo!\n\n");
+        pauseScreen();
+    } else {
+        while (!feof(arquivo)) {
+            fscanf(arquivo, "%s\n", linha);
+            
+            //formato esperado: '%d;%s;%d' que eh o mesmo de 'INTEIRO;STRING;INTEIRO'
+            parte  = strtok(linha, delimitador); 
+            codigo = atoi(parte);
+            parte = strtok(NULL, delimitador);
+            nome  = parte;
+            parte = strtok(NULL, delimitador);
+            populacao = atoi(parte);
+            
+            cidade   = newCidade(codigo, nome, populacao);
+            elemento = newElemento(cidade, NULL, NULL);
+            inserir(lista, elemento);
+            contador++;
+        }
+    }
+    fclose(arquivo);
+    return NULL;
+}
+
+void medirTempos(Lista *baseDados, Lista *ltOrdenadaCod, Lista *ltOrdenadaNome) {
+    clock_t clockInicio, clockFim;
+    double tempo;
+    //TEMPO ORDENAÇÃO POR CÓDIGO
+    clockInicio   = clock();
+    ltOrdenadaCod = clonarOrdenadoCodigo(baseDados);
+    //ordenarCodigo(ltOrdenadaCod);
+    clockFim      = clock();
+    tempo         = (double)(clockFim - clockInicio) / CLOCKS_PER_SEC;
+    printf("\n\nTEMPO CODIGO: %f \n", tempo);
+    
+    //TEMPO ORDENAÇÃO POR NOME
+    clockInicio = clock();
+    ltOrdenadaNome = clonarOrdenadoNome(baseDados);
+    //ordenarNome(ltOrdenadaNome);
+    clockFim = clock();
+    tempo = (double)(clockFim - clockInicio) / CLOCKS_PER_SEC;
+    printf("\n\nTEMPO NOME: %f \n\n\n", tempo);
+    
+    
+    printf("\n LISTA CODIGO: \n");
+    listar(ltOrdenadaCod);
+    pauseScreen();
+    
+    printf("\n LISTA NOME: \n");
+    listar(ltOrdenadaNome);
 }

@@ -1,10 +1,18 @@
-/**
- *  Edilson Cichon - 2017 
+/* 
+ * File:   global.h
+ * Author: Edilson Cichon
+ *
+ * Created on September 8, 2017, 10:47 AM
  */
 
-#define TITULO_APP      "LISTAS TPA"
-#define STRING_EOF      '\0'
-#define STRING_ESPACO   ' '
-#define STRSIZE             50 //TODO DELETAR
-#define STRING_TAM_PADRAO   5000
-#define VAZIO               NULL
+#ifndef GLOBAL_H
+#define GLOBAL_H
+
+#define TITULO_APP        "LISTAS TPA"
+#define VAZIO             NULL
+#define STRSIZE           50
+#define STRING_EOF        '\0'
+#define STRING_ESPACO     ' '
+#define STRING_TAM_PADRAO 5000
+
+#endif /* GLOBAL_H */

@@ -4,8 +4,10 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>cidade.h</itemPath>
+      <itemPath>elemento.h</itemPath>
       <itemPath>global.h</itemPath>
-      <itemPath>structures.h</itemPath>
+      <itemPath>lista.h</itemPath>
       <itemPath>util.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -39,11 +41,15 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="cidade.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="elemento.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="global.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="lista.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="structures.h" ex="false" tool="3" flavor2="0">
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="util.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -68,11 +74,15 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="cidade.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="elemento.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="global.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      <item path="lista.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="structures.h" ex="false" tool="3" flavor2="0">
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="util.h" ex="false" tool="3" flavor2="0">
       </item>
