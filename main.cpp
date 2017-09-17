@@ -30,15 +30,15 @@ void * lerArquivo(Lista *lista, char * caminho);
 void medirTempos(Lista *lista, Lista *ordCodigo, Lista *ordNome);
 
 int main() {
-    Lista *baseDados           = newLista();
-    Lista *listaOrdenadaNome   = newLista();
-    Lista *listaOrdenadaCodigo = newLista();
+    Lista *baseDados = newLista();
+    Lista listaOrdenadaNome;
+    Lista listaOrdenadaCodigo;
     inicializar(baseDados);
     
     printf("\n\n Lendo cidades... \n");
     lerArquivo(baseDados, newString("base_dados/entrada_100000.txt"));
     
-    medirTempos(baseDados, listaOrdenadaCodigo, listaOrdenadaNome);
+    medirTempos(baseDados, &listaOrdenadaCodigo, &listaOrdenadaNome);
     
     return (EXIT_SUCCESS);
 }
@@ -121,25 +121,15 @@ void medirTempos(Lista *baseDados, Lista *ltOrdenadaCod, Lista *ltOrdenadaNome) 
     double tempo;
     //TEMPO ORDENAÇÃO POR CÓDIGO
     clockInicio   = clock();
-    ltOrdenadaCod = clonarOrdenadoCodigo(baseDados);
-    //ordenarCodigo(ltOrdenadaCod);
+    ltOrdenadaCod = ordenarCodigo(baseDados);
     clockFim      = clock();
     tempo         = (double)(clockFim - clockInicio) / CLOCKS_PER_SEC;
     printf("\n\nTEMPO CODIGO: %f \n", tempo);
     
     //TEMPO ORDENAÇÃO POR NOME
     clockInicio = clock();
-    ltOrdenadaNome = clonarOrdenadoNome(baseDados);
-    //ordenarNome(ltOrdenadaNome);
+    ltOrdenadaNome = ordenarNome(baseDados);
     clockFim = clock();
     tempo = (double)(clockFim - clockInicio) / CLOCKS_PER_SEC;
     printf("\n\nTEMPO NOME: %f \n\n\n", tempo);
-    
-    
-    printf("\n LISTA CODIGO: \n");
-    listar(ltOrdenadaCod);
-    pauseScreen();
-    
-    printf("\n LISTA NOME: \n");
-    listar(ltOrdenadaNome);
 }

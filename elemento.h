@@ -17,7 +17,6 @@ typedef struct tipoElemento {
 } Elemento;
 
 Elemento * newElemento(Cidade *conteudo, Elemento *anterior, Elemento *proximo);
-Elemento * clonar(Elemento *elemento);
 
 Elemento * newElemento(Cidade *conteudo, Elemento *anterior, Elemento *proximo) {
     Elemento *elemento = (Elemento*) malloc(sizeof(Elemento));
@@ -25,11 +24,6 @@ Elemento * newElemento(Cidade *conteudo, Elemento *anterior, Elemento *proximo) 
     elemento->anterior = anterior;
     elemento->proximo  = proximo;
     return elemento;
-}
-
-Elemento * clonar(Elemento *elemento) {
-    Elemento *novo = newElemento(elemento->conteudo, elemento->anterior, elemento->proximo);
-    return novo;
 }
 
 #endif /* ELEMENTO_H */

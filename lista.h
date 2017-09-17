@@ -25,12 +25,10 @@ void inicializar(Lista *lista);
 void inserir(Lista *lista, Elemento *elemento);
 void inserirOrdenadoNome(Lista *lista, Elemento *elemento);
 void inserirOrdenadoCodigo(Lista *lista, Elemento *elemento);
-void ordenarNome(Lista *lista, Lista *listaOrdenada);
-void ordenarCodigo(Lista *lista, Lista *listaOrdenada);
 Elemento* remover(Lista *lista, Elemento *el);
 Lista * clonar(Lista *lista);
-Lista * clonarOrdenadoCodigo(Lista *lista);
-Lista * clonarOrdenadoNome(Lista *lista);
+Lista * ordenarCodigo(Lista *lista);
+Lista * ordenarNome(Lista *lista);
 Lista * newLista();
 void listar(Lista *lista);
 
@@ -129,107 +127,6 @@ void inserirOrdenadoNome(Lista *lista, Elemento *elemento) {
     }
 }
 
-void ordenarNome(Lista *lista) {
-    if (lista->total < 2)
-        return;
-    int moveu_elemento = 0;
-    int ordenado = 0;
-
-    Elemento * atual   = NULL;
-    Elemento * proximo = NULL;
-
-    while (ordenado != 1) {
-        atual   = lista->primeiro;
-        proximo = atual->proximo;
-
-        while (proximo != NULL) {
-            moveu_elemento = 0;
-            if (strcmp(atual->conteudo->nome, proximo->conteudo->nome) == 1) {
-                proximo->anterior = atual->anterior;
-                atual->proximo    = proximo->proximo;
-
-                if (proximo->proximo != NULL) {
-                    proximo->proximo->anterior = atual;
-                }
-                if (atual->anterior != NULL) {
-                    atual->anterior->proximo = proximo;
-                }
-                proximo->proximo = atual;
-                atual->anterior  = proximo;
-
-                if (atual == lista->primeiro)
-                    lista->primeiro = proximo;
-                if (proximo == lista->ultimo)
-                    lista->ultimo = atual;
-                moveu_elemento = 1;
-            }
-            if (moveu_elemento) {
-                atual   = lista->primeiro;
-                proximo = atual->proximo;
-            } else {
-                atual   = proximo;
-                proximo = proximo->proximo;
-            }
-        }
-        if (moveu_elemento == 0)
-            ordenado = 1;
-        else
-            moveu_elemento = 0;
-    }
-}
-
-void ordenarCodigo(Lista *lista) {
-    if (lista->total < 2)
-        return;
-    int moveu_elemento = 0;
-    int ordenado = 0;
-
-    Elemento * atual   = NULL;
-    Elemento * proximo = NULL;
-
-    while (ordenado != 1) {
-        atual   = lista->primeiro;
-        proximo = atual->proximo;
-
-        while (proximo != NULL) {
-            moveu_elemento = 0;
-            
-            if (atual->conteudo->codigo > proximo->conteudo->codigo) {
-                proximo->anterior = atual->anterior;
-                atual->proximo    = proximo->proximo;
-
-                if (proximo->proximo != NULL) {
-                    proximo->proximo->anterior = atual;
-                }
-                if (atual->anterior != NULL) {
-                    atual->anterior->proximo = proximo;
-                }
-                proximo->proximo = atual;
-                atual->anterior  = proximo;
-
-                if (atual == lista->primeiro)
-                    lista->primeiro = proximo;
-                if (proximo == lista->ultimo)
-                    lista->ultimo = atual;
-                moveu_elemento = 1;
-            }
-            
-            if (moveu_elemento) {
-                atual   = lista->primeiro;
-                proximo = atual->proximo;
-            } else {
-                atual   = proximo;
-                proximo = proximo->proximo;
-            }
-        }
-        
-        if (moveu_elemento == 0)
-            ordenado = 1;
-        else
-            moveu_elemento = 0;
-    }
-}
-
 Elemento* remover(Lista *lista, Elemento *el) {
     Elemento *elAtual = lista->primeiro;
     while (elAtual != NULL) {
@@ -274,12 +171,12 @@ Lista * clonar(Lista *lista) {
     return nova;
 }
 
-Lista * clonarOrdenadoCodigo(Lista *lista) {
+Lista * ordenarCodigo(Lista *lista) {
     Lista *nova = newLista();
     inicializar(nova);
     Elemento *atual = lista->primeiro;
     
-    while (atual->proximo != VAZIO) {
+    while (atual != VAZIO) {
         inserirOrdenadoCodigo(nova, newElemento(atual->conteudo, NULL, NULL));
         atual = atual->proximo;
     }
@@ -287,22 +184,18 @@ Lista * clonarOrdenadoCodigo(Lista *lista) {
     return nova;
 }
 
-Lista * clonarOrdenadoNome(Lista *lista) {
+Lista * ordenarNome(Lista *lista) {
     Lista *nova = newLista();
     inicializar(nova);
     Elemento *atual = lista->primeiro;
     
-    while (atual->proximo != VAZIO) {
+    while (atual != VAZIO) {
         inserirOrdenadoNome(nova, newElemento(atual->conteudo, NULL, NULL));
         atual = atual->proximo;
     }
     
     nova->total = lista->total;
     return nova;
-}
-
-Lista * newLista() {
-    return (Lista*) malloc(sizeof(Lista));
 }
 
 void listar(Lista *lista) {
@@ -318,6 +211,10 @@ void listar(Lista *lista) {
     }
     
     printf("QUANTIDADE: %d\n\n", lista->total);
+}
+
+Lista * newLista() {
+    return (Lista*) malloc(sizeof(Lista));
 }
 
 #endif /* LISTA_H */
